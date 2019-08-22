@@ -7,9 +7,9 @@
         </encoder>
     </appender>
     <appender name="baseLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>log/service/service.log</File>
+        <File>log/service.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>log/service/service.log.%d.%i</fileNamePattern>
+            <fileNamePattern>log/service.log.%d.%i</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy  class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- or whenever the file size reaches 64 MB -->
                 <maxFileSize>64 MB</maxFileSize>
@@ -28,7 +28,4 @@
     <root name="com.dlf" level="INFO">
         <appender-ref ref="baseLog"/>
     </root>
-    <logger name="com.dlf.model.mapper" level="DEBUG">
-        <appender-ref ref="baseLog"/>
-    </logger>
 </configuration>
