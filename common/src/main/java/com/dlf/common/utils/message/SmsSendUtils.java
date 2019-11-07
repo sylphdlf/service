@@ -1,8 +1,5 @@
 package com.dlf.common.utils.message;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

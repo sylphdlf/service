@@ -9,7 +9,4 @@ public interface UserService {
     GlobalResultDTO login(UserReqDTO reqDTO);
 
     GlobalResultDTO register(UserReqDTO reqDTO) throws MyException;
-
-    GlobalResultDTO queryUserByUsername(UserReqDTO reqDTO);
-
 }

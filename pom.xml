@@ -8,19 +8,16 @@
 	<packaging>pom</packaging>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.version>1.0-SNAPSHOT</project.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-		<springboot.version>1.5.19.RELEASE</springboot.version>
-		<springcloud.version>Dalston.RELEASE</springcloud.version>
-        <mysqlConnector.version>5.1.47</mysqlConnector.version>
+		<springboot.version>2.1.0.RELEASE</springboot.version>
+		<springcloud.version>Greenwich.SR3</springcloud.version>
+        <mysqlConnector.version>5.1.48</mysqlConnector.version>
         <httpClient.version>4.5.6</httpClient.version>
-        <netflixDependencies.version>2.1.1.RELEASE</netflixDependencies.version>
-        <fastjson.version>1.2.31</fastjson.version>
-		<mybatisSpringboot.version>1.3.2</mybatisSpringboot.version>
 		<pageHelper.version>1.2.5</pageHelper.version>
-		<feign.version>1.4.6.RELEASE</feign.version>
+		<mybatisSpring.version>2.1.0</mybatisSpring.version>
+		<jasypt.version>2.1.0</jasypt.version>
+		<druid.version>1.1.20</druid.version>
 	</properties>
 
 	<dependencyManagement>
@@ -31,7 +28,7 @@
 				<artifactId>spring-boot-dependencies</artifactId>
 				<version>${springboot.version}</version>
 				<type>pom</type>
-				<scope>provided</scope>
+				<scope>import</scope>
 			</dependency>
 			<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
 			<dependency>
@@ -46,6 +43,11 @@
                 <artifactId>api</artifactId>
                 <version>${project.version}</version>
             </dependency>
+			<dependency>
+				<groupId>com.dlf.project</groupId>
+				<artifactId>common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
             <dependency>
                 <groupId>com.dlf.project</groupId>
                 <artifactId>model</artifactId>
@@ -56,11 +58,6 @@
                 <artifactId>business</artifactId>
                 <version>${project.version}</version>
             </dependency>
-			<dependency>
-				<groupId>com.dlf.project</groupId>
-				<artifactId>common</artifactId>
-				<version>${project.version}</version>
-			</dependency>
         </dependencies>
 	</dependencyManagement>
 	<dependencies>
@@ -68,68 +65,34 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-            <version>${netflixDependencies.version}</version>
         </dependency>
         <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
             <version>${springboot.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-config-server</artifactId>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>${springboot.version}</version>
+			<version>${springboot.version}</version>
         </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jdbc</artifactId>
+			<version>${springboot.version}</version>
+		</dependency>
         <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${springboot.version}</version>
+			<version>${springboot.version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-actuator -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-            <version>${mysqlConnector.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-actuator</artifactId>
+			<version>${springboot.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>${fastjson.version}</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>${mybatisSpringboot.version}</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-resources-plugin</artifactId>
-			<version>3.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.7</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper -->
-		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper-spring-boot-starter</artifactId>
-			<version>${pageHelper.version}</version>
-		</dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${httpClient.version}</version>
-        </dependency>
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>okhttp</artifactId>
@@ -141,6 +104,35 @@
 			<artifactId>rocketmq-client</artifactId>
 			<version>4.5.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysqlConnector.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-starter -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<version>${springboot.version}</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<modules>
 		<module>business</module>
@@ -148,36 +140,6 @@
 		<module>common</module>
 		<module>api</module>
 	</modules>
-    <!--maven打包配置-->
-    <!--<profiles>-->
-        <!--<profile>-->
-            <!--<id>dev</id>-->
-            <!--<properties>-->
-                <!--<profileActive>src/resources</profileActive>-->
-            <!--</properties>-->
-            <!--<activation>-->
-                <!--<activeByDefault>true</activeByDefault>-->
-            <!--</activation>-->
-        <!--</profile>-->
-        <!--<profile>-->
-            <!--<id>test</id>-->
-            <!--<properties>-->
-                <!--<profileActive>test</profileActive>-->
-            <!--</properties>-->
-            <!--<activation>-->
-                <!--<activeByDefault>false</activeByDefault>-->
-            <!--</activation>-->
-        <!--</profile>-->
-        <!--<profile>-->
-            <!--<id>prod</id>-->
-            <!--<properties>-->
-                <!--<profileActive>prod</profileActive>-->
-            <!--</properties>-->
-            <!--<activation>-->
-                <!--<activeByDefault>false</activeByDefault>-->
-            <!--</activation>-->
-        <!--</profile>-->
-    <!--</profiles>-->
     <build>
         <plugins>
             <plugin>
@@ -197,5 +159,5 @@
                 </configuration>
             </plugin>
         </plugins>
-        </build>
+	</build>
 </project>

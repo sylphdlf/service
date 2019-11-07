@@ -14,17 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/reg")
 public class RegisterController {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     UserService userService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public GlobalResultDTO register(@RequestBody BaseReqDTO<UserReqDTO> reqDTO) throws MyException{
-        return userService.register(reqDTO.getData());
+    public GlobalResultDTO register(@RequestBody UserReqDTO reqDTO) throws MyException{
+        return userService.register(reqDTO);
     }
 
 }

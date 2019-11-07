@@ -2,6 +2,7 @@ package com.dlf.api;
 
 import com.dlf.business.exception.MyException;
 import com.dlf.model.dto.GlobalResultDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -9,9 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
+@Slf4j
 public class MyExceptionAdvice {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
      * 全局异常捕捉处理
@@ -21,7 +21,7 @@ public class MyExceptionAdvice {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public GlobalResultDTO errorHandler(Exception e) {
-        logger.error("捕获到Exception异常", e);
+        log.error("捕获到Exception异常", e);
         return GlobalResultDTO.FAIL();
     }
 

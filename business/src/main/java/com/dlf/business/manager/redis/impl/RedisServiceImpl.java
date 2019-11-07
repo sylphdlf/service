@@ -1,7 +1,6 @@
 package com.dlf.business.manager.redis.impl;
 
 import com.dlf.business.manager.redis.RedisService;
-import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -106,19 +105,6 @@ public class RedisServiceImpl implements RedisService {
     @Override
     public void removeKey(String key) {
         redisTemplate.delete(key);
-    }
-
-    @Override
-    public Session getSession(String key){
-        try {
-            redisTemplate.setKeySerializer(new StringRedisSerializer());
-            ValueOperations<String, Session> valueOperations = redisTemplate.opsForValue();
-            Session session = valueOperations.get(key);
-            return session;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
     }
 
     @Override

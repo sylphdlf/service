@@ -1,7 +1,5 @@
 package com.dlf.business.manager.redis;
 
-import org.apache.shiro.session.Session;
-
 import java.util.Set;
 
 public interface RedisService {
@@ -31,8 +29,6 @@ public interface RedisService {
     Object getObj(String key);
 
     void removeKey(String key);
-
-    Session getSession(String key);
 
     Set<String> getKeysByPrefix(String prefix);
 
