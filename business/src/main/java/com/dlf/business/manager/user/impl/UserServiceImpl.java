@@ -2,18 +2,17 @@ package com.dlf.business.manager.user.impl;
 
 import com.dlf.business.anno.ValidateAnno;
 import com.dlf.business.exception.MyException;
-import com.dlf.business.manager.redis.RedisService;
 import com.dlf.business.manager.user.UserService;
+import com.dlf.common.utils.BeanUtils;
 import com.dlf.common.utils.Md5Utils;
-import com.dlf.model.dao.UserDao;
+import com.dlf.model.dao.user.UserDao;
 import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.dto.user.UserReqDTO;
-import com.dlf.model.enums.user.UserEnums;
+import com.dlf.model.dto.user.UserResDTO;
 import com.dlf.model.enums.user.UserResultEnums;
 import com.dlf.model.po.user.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -30,7 +29,9 @@ public class UserServiceImpl implements UserService {
         try {
             User result = userDao.findByUsernameAndPassword(reqDTO.getUsername(), Md5Utils.md5Encoding32(reqDTO.getPassword().getBytes()));
             if (null != result) {
-                return GlobalResultDTO.SUCCESS((Object)result.getPassword());
+                UserResDTO userResDTO = new UserResDTO();
+                BeanUtils.copyProperties(result, userResDTO);
+                return GlobalResultDTO.SUCCESS(userResDTO);
             }
             return GlobalResultDTO.FAIL(UserResultEnums.USER_NOT_EXISTED.getCode(), UserResultEnums.USER_NOT_EXISTED.getMsg());
         }catch (Exception e){

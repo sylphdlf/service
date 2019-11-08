@@ -1,4 +1,4 @@
-package com.dlf.model.po.user;
+package com.dlf.model.po.sys;
 
 import com.dlf.model.po.BasePo;
 import lombok.Data;
@@ -10,15 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Data
-@Entity(name = "u_user")
+@Entity(name = "s_server")
 @EqualsAndHashCode(callSuper = true)
-public class User extends BasePo {
-
+public class Server extends BasePo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
-    private String password;
-    private String mobile;
-
+    private String name;
+    private String ip;
+    private Integer port;
+    private String serverPath;
+    private String configPath;
 }

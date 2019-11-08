@@ -5,6 +5,7 @@ import com.dlf.business.exception.MyException;
 import com.dlf.common.utils.comm.CommonUtils;
 import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.enums.GlobalResultEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,15 +18,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @Order(1)
+@Slf4j
 public class ValidateAspect {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     /**
      * 非空验证
-     * @param jp
-     * @param anno
      * @return Object
-     * @throws MyException
      */
     @Around(value = "@annotation(anno))")
     public Object validate(ProceedingJoinPoint jp, ValidateAnno anno) throws MyException{
@@ -40,7 +37,7 @@ public class ValidateAspect {
         } catch (MyException e) {
             throw new MyException(e.getErrorCode(), e.getMessage());
         } catch (Throwable throwable){
-            logger.error(throwable.getMessage());
+            log.error(throwable.getMessage());
         }
         return GlobalResultDTO.FAIL();
     }

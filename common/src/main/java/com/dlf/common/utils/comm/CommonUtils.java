@@ -13,9 +13,6 @@ public class CommonUtils {
 
     /**
      * 验证入参
-     * @param obj
-     * @param fieldNames
-     * @return
      */
     public static String validateObjectFields(Object obj, String[] fieldNames){
         StringBuilder returnStr = new StringBuilder();
@@ -35,22 +32,4 @@ public class CommonUtils {
         }
         return "";
     }
-
-//    private static int byteArrayToInt(byte[] b, int offset) {
-//        int value = 0;
-//        for (int i = 0; i < 4; i++) {
-//            int shift = (4 - 1 - i) * 8;
-//            value += (b[i + offset] & 0x000000FF) << shift;
-//        }
-//        return value;
-//    }
-
-//    private static int bytesToInt(byte[] bNum) {
-//        int retInt = 0;
-//        retInt = ((bNum[0] & 0xFF) << 24);
-//        retInt += (bNum[1] & 0xFF) << 16;
-//        retInt += (bNum[2] & 0xFF) << 8;
-//        retInt += bNum[3] & 0xFF;
-//        return retInt;
-//    }
 }

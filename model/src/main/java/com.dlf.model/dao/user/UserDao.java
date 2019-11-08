@@ -1,4 +1,4 @@
-package com.dlf.model.dao;
+package com.dlf.model.dao.user;
 
 import com.dlf.model.po.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
