@@ -9,15 +9,16 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 @Aspect
 @Component
 public class RedisCacheAspect {
 
     private Logger logger = LoggerFactory.getLogger(RedisCacheAspect.class);
-    @Autowired
+    @Resource
     RedisService redisService;
     /**
      * 方法开头从缓存中获取数据，方法结尾设置缓存

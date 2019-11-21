@@ -8,20 +8,20 @@ public class UserUtils {
         return USER_LOCAL.get();
     }
 
-    public static String getUserId(){
-        return USER_LOCAL.get().getId();
+    public static Long getUserId(){
+        return USER_LOCAL.get().getUserId();
     }
 
     public static String getOrgCode(){
         return USER_LOCAL.get().getOrgCode();
     }
 
-    public static Integer getType(){
-        return USER_LOCAL.get().getType();
-    }
-
     public static void setUserLocal(ThreadUser userLocal) {
         USER_LOCAL.set(userLocal);
     }
-
+    public static void setUserId(Long userId) {
+        ThreadUser threadUser = new ThreadUser();
+        threadUser.setUserId(userId);
+        USER_LOCAL.set(threadUser);
+    }
 }

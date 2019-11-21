@@ -19,6 +19,7 @@ public class Server extends BasePo {
     private String name;
     private String ip;
     private Integer port;
+    private String sourcePath;
     private String serverPath;
     private String configPath;
 }

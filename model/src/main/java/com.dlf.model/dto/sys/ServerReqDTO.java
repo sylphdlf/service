@@ -11,6 +11,7 @@ public class ServerReqDTO extends BaseReqDTO {
     private String name;
     private String ip;
     private Integer port;
+    private String sourcePath;
     private String serverPath;
     private String configPath;
 }

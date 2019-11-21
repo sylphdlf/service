@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS `s_server` (
   `name` VARCHAR(50) NOT NULL COMMENT '名称',
   `ip` VARCHAR(20) NOT NULL COMMENT 'ip',
   `port` int(6) NOT NULL COMMENT '端口',
+  `source_path` VARCHAR(100) NOT NULL COMMENT '源码路径',
   `server_path` VARCHAR(100) NOT NULL COMMENT '服务地址',
   `config_path` VARCHAR(100) NOT NULL COMMENT '配置文件地址',
   `status` INT(2) DEFAULT '0' COMMENT '状态',

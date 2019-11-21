@@ -19,12 +19,17 @@ public class ServerController {
     ServerService serverService;
 
     @RequestMapping(value = "/queryPage", method = RequestMethod.POST)
-    private GlobalResultDTO queryPage(@RequestBody ServerSearchDTO searchDTO){
-        return GlobalResultDTO.SUCCESS();
+    public GlobalResultDTO queryPage(@RequestBody ServerSearchDTO searchDTO){
+        return serverService.queryPage(searchDTO);
     }
 
     @RequestMapping(value = "/addOrEdit", method = RequestMethod.POST)
     public GlobalResultDTO addOrEdit(@RequestBody ServerReqDTO reqDTO){
         return serverService.addOrEdit(reqDTO);
+    }
+
+    @RequestMapping(value = "/configPath", method = RequestMethod.POST)
+    public GlobalResultDTO configPath(@RequestBody ServerSearchDTO searchDTO){
+        return serverService.configPath(searchDTO);
     }
 }
