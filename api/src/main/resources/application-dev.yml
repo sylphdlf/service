@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://118.25.197.159:3306/cloud
     username: root
-    password: root1989128
+    password: ENC(S5oDA0S6hWdD+6eeaYAjTH01Cu74Epsp)
   jpa:
     database: mysql
     show-sql: true
@@ -15,12 +15,13 @@ spring:
     host: 127.0.0.1
     password:
     port: 6379
-    pool:
-      max-idle: 8
-      min-idle: 0
-      max-active: 8
-      max-wait: -1
     timeout: 300
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: -1
 server:
   port: 8889
 eureka:
@@ -31,6 +32,10 @@ eureka:
     prefer-ip-address: true
 mybatis:
   mapper-locations: classpath:/mapper/**/*.xml
+#加密盐
+jasypt:
+  encryptor:
+    password: haha
 #文件上传地址
 comm:
   upload:
