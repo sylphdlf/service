@@ -6,3 +6,7 @@
 /model/model.iml
 /service.iml
 /model/src/main/resources/generatorConfig.xml
+/api/target/classes/
+/common/target/classes/com/dlf/common/utils/
+/business/target/classes/com/dlf/business/
+/model/target/classes/
