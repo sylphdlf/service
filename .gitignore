@@ -5,3 +5,4 @@
 /common/common.iml
 /model/model.iml
 /service.iml
+/model/src/main/resources/generatorConfig.xml

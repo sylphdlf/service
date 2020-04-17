@@ -21,6 +21,7 @@
 		<netty.version>5.0.0.Alpha2</netty.version>
 		<netflixDependencies.version>2.1.1.RELEASE</netflixDependencies.version>
 		<guava.version>28.1-jre</guava.version>
+		<mybatis.generator>1.4.0</mybatis.generator>
 	</properties>
 
 	<dependencyManagement>
@@ -163,6 +164,12 @@
 			<groupId>com.github.ulisesbocchio</groupId>
 			<artifactId>jasypt-spring-boot-starter</artifactId>
 			<version>2.1.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
+		<dependency>
+			<groupId>org.mybatis.generator</groupId>
+			<artifactId>mybatis-generator-core</artifactId>
+			<version>${mybatis.generator}</version>
 		</dependency>
 	</dependencies>
 	<modules>
