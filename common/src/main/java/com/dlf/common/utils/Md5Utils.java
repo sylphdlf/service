@@ -3,7 +3,6 @@ package com.dlf.common.utils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,6 +23,10 @@ public class Md5Utils {
     //文件MD5加密
     public static String md5Encoding(MultipartFile file) throws IOException, NoSuchAlgorithmException {
         return Md5Utils.transferFromBytes(file.getBytes()).toUpperCase();
+    }
+    //字符串MD5加密
+    public static String md5Encoding(String str) throws NoSuchAlgorithmException {
+        return Md5Utils.transferFromBytes(str.getBytes()).toUpperCase();
     }
 
     public static String md5Encoding32(byte[] bytes) throws NoSuchAlgorithmException {
