@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
-
     @RequestMapping(value = "/wxsp/register", method = RequestMethod.POST)
     public GlobalResultDTO wxRegister(@RequestBody WxUserReqDTO reqDTO) {
+
         return GlobalResultDTO.SUCCESS();
     }
 }

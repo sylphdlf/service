@@ -10,3 +10,4 @@
 /common/target/classes/com/dlf/common/utils/
 /business/target/classes/com/dlf/business/
 /model/target/classes/
+/model/src/main/resources/mybatis-generator.xml
