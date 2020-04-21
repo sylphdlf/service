@@ -1,8 +1,10 @@
+drop table `u_user`;
 CREATE TABLE IF NOT EXISTS `u_user` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(255) NOT NULL COMMENT '用户名',
-  `password` VARCHAR(60) NOT NULL,
+  `password` VARCHAR(60) NULL,
   `mobile` VARCHAR(60) DEFAULT NULL COMMENT '手机',
+  `type` INT(2) DEFAULT '0' COMMENT '类型: 1:微信小程序',
   `status` INT(2) DEFAULT '0' COMMENT '状态：0：待审核；1：审核通过；2：审核不通过；',
   `remarks` VARCHAR(255) DEFAULT NULL COMMENT '备注',
   `create_user_id` BIGINT(20) NULL COMMENT '创建人',
@@ -18,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `u_user` (
 CREATE TABLE IF NOT EXISTS `u_user_wx` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `user_id` BIGINT(20) NOT NULL COMMENT '用户id',
+  `nick_name` VARCHAR(20) NULL COMMENT '昵称',
   `open_id` VARCHAR(50) NOT NULL COMMENT 'openId',
   `remarks` VARCHAR(255) DEFAULT NULL COMMENT '备注',
   `create_user_id` BIGINT(20) NULL COMMENT '创建人',

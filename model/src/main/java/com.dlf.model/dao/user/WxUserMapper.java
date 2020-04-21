@@ -1,8 +1,9 @@
 package com.dlf.model.dao.user;
 
-import com.dlf.model.temp.WxUser;
+import com.dlf.model.po.user.WxUser;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface WxUserMapper {
+public interface WxUserMapper extends JpaRepository<WxUser, Long> {
     int deleteByPrimaryKey(Long id);
 
     int insert(WxUser record);

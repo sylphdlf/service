@@ -7,6 +7,8 @@ public class WxUser {
 
     private Long userId;
 
+    private String nickName;
+
     private String openId;
 
     private String remarks;
@@ -37,6 +39,14 @@ public class WxUser {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
     }
 
     public String getOpenId() {

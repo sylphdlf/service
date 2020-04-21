@@ -1,12 +1,12 @@
 package com.dlf.business.manager.user;
 
-import com.dlf.business.exception.MyException;
 import com.dlf.model.dto.GlobalResultDTO;
-import com.dlf.model.dto.user.UserReqDTO;
+import com.dlf.model.dto.user.WxUserReqDTO;
 
 public interface UserService {
 
-    GlobalResultDTO login(UserReqDTO reqDTO);
+    GlobalResultDTO register();
 
-    GlobalResultDTO register(UserReqDTO reqDTO) throws MyException;
+    GlobalResultDTO wxRegister(WxUserReqDTO reqDTO);
+
 }
