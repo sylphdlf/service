@@ -17,7 +17,7 @@ import java.util.Date;
 @Slf4j
 public class DBAspect {
 
-    @Pointcut(value = "execution(* org.springframework.data.jpa.repository.save*(..))")
+    @Pointcut(value = "execution(* com.dlf.model.dao.*.*.save*(..))")
     private void beforeInsert(){};
 //    @Pointcut(value = "execution(* com.dlf.model.mapper.*.*.delete*(..)) || execution(* com.dlf.model.mapper.*.*.update*(..))")
 //    private void beforeDeleteOrUpdate(){};

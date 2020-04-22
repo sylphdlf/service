@@ -2,6 +2,7 @@ package com.dlf.api.controller.user;
 
 import com.dlf.business.manager.user.UserService;
 import com.dlf.model.dto.GlobalResultDTO;
+import com.dlf.model.dto.user.UserReqDTO;
 import com.dlf.model.dto.user.WxUserReqDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,5 +21,9 @@ public class UserController {
     @RequestMapping(value = "/wxsp/register", method = RequestMethod.POST)
     public GlobalResultDTO wxRegister(@RequestBody WxUserReqDTO reqDTO) {
         return userService.wxRegister(reqDTO);
+    }
+
+    public GlobalResultDTO getUserByUsername(@RequestBody UserReqDTO reqDTO){
+        return userService.getUserByUsername(reqDTO);
     }
 }

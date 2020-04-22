@@ -22,6 +22,8 @@ spring:
         min-idle: 0
         max-active: 8
         max-wait: -1
+  main:
+    allow-bean-definition-overriding: true
 server:
   port: 8889
 eureka:
