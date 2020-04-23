@@ -18,7 +18,7 @@ public class UserInterceptor implements HandlerInterceptor {
     private static final String DEFAULT_USER_ID = "0";
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) {
-        Optional.of(request.getHeader(HEADER_USER_ID))
+        Optional.ofNullable(request.getHeader(HEADER_USER_ID))
                 .map(t -> StringUtils.isEmpty(t) ? DEFAULT_USER_ID : t)
                 .ifPresent(t -> ThreadUser.setUserId(Long.valueOf(t)));
         return true;

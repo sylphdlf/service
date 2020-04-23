@@ -149,7 +149,7 @@ public class GlobalResultDTO<T> implements Serializable{
     public static GlobalResultDTO SUCCESS(String message) {
         GlobalResultDTO resultDto = new GlobalResultDTO();
         resultDto.setCode(SUCCESS_CODE);
-        resultDto.setMsg(message);
+        resultDto.setData(message);
         return resultDto;
     }
 

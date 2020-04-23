@@ -6,11 +6,13 @@ import com.dlf.model.dao.user.UserMapper;
 import com.dlf.model.dao.user.WxUserMapper;
 import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.dto.user.UserReqDTO;
+import com.dlf.model.dto.user.UserResDTO;
 import com.dlf.model.dto.user.WxUserReqDTO;
 import com.dlf.model.enums.user.UserEnums;
 import com.dlf.model.po.user.User;
 import com.netflix.discovery.converters.Auto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -50,7 +52,10 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setUsername(reqDTO.getUsername());
         return userMapper.findOne(Example.of(user))
-                .map(u -> GlobalResultDTO.SUCCESS(u.getUsername()))
-                .orElse(GlobalResultDTO.FAIL());
+                .map(u -> {
+                    UserResDTO resDTO = new UserResDTO();
+                    BeanUtils.copyProperties(u, resDTO);
+                    return GlobalResultDTO.SUCCESS(resDTO);
+                }).orElse(GlobalResultDTO.FAIL());
     }
 }
