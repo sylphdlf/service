@@ -14,13 +14,14 @@ import java.util.Optional;
  */
 public class UserInterceptor implements HandlerInterceptor {
 
-    private static final String HEADER_USER_ID = "user-id";
+    private static final String HEADER_USER_ID = "userId";
+    private static final String HEADER_USERNAME = "username";
     private static final String DEFAULT_USER_ID = "0";
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) {
         Optional.ofNullable(request.getHeader(HEADER_USER_ID))
                 .map(t -> StringUtils.isEmpty(t) ? DEFAULT_USER_ID : t)
-                .ifPresent(t -> ThreadUser.setUserId(Long.valueOf(t)));
+                .ifPresent(t -> ThreadUser.setUser(Long.valueOf(t), request.getHeader(HEADER_USERNAME)));
         return true;
     }
 

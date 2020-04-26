@@ -95,6 +95,7 @@ CREATE TABLE IF NOT EXISTS `u_org_role` (
 CREATE TABLE IF NOT EXISTS `u_role` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL COMMENT '角色名称',
+  `type` INT(2) DEFAULT '0' COMMENT '类型: 1:超级管理员，2：其他角色',
   `remarks` VARCHAR(255) DEFAULT NULL COMMENT '备注',
   `create_user_id` BIGINT(20) NULL COMMENT '创建人',
   `create_time` TIMESTAMP DEFAULT current_timestamp COMMENT '创建时间',

@@ -15,9 +15,11 @@ public class ThreadUser {
     public static void setUserLocal(User userLocal) {
         USER_LOCAL.set(userLocal);
     }
-    public static void setUserId(Long userId) {
+
+    public static void setUser(Long userId, String username) {
         User threadUser = new User();
         threadUser.setUserId(userId);
+        threadUser.setUsername(username);
         USER_LOCAL.set(threadUser);
     }
 
