@@ -1,8 +1,8 @@
 package com.dlf.api.controller.user;
 
 import com.dlf.business.manager.user.RoleService;
-import com.dlf.business.manager.user.UserService;
 import com.dlf.model.dto.GlobalResultDTO;
+import com.dlf.model.dto.user.RoleReqDTO;
 import com.dlf.model.dto.user.RoleSearchDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,4 +23,13 @@ public class RoleController {
         return roleService.queryPage(searchDTO);
     }
 
+    @RequestMapping(value = "/addOrEdit", method = RequestMethod.POST)
+    public GlobalResultDTO addOrEdit(@RequestBody RoleReqDTO reqDTO){
+        return roleService.addOrEdit(reqDTO);
+    }
+
+    @RequestMapping(value = "/getTypeMap", method = RequestMethod.POST)
+    public GlobalResultDTO getTypeMap(){
+        return roleService.getTypeMap();
+    }
 }

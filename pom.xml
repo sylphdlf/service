@@ -22,6 +22,7 @@
 		<netflixDependencies.version>2.1.1.RELEASE</netflixDependencies.version>
 		<guava.version>28.1-jre</guava.version>
 		<mybatis.generator>1.4.0</mybatis.generator>
+		<reflections.version>0.9.11</reflections.version>
 	</properties>
 
 	<dependencyManagement>

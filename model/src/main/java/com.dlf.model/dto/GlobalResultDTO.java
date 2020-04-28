@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public class GlobalResultDTO<T> implements Serializable{
 
-    private static final long serialVersionUID = 3147080607075035747L;
+    private static final long serialVersionUID = 5590542984347768447L;
 
     /**
      * 正确代码

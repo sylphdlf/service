@@ -1,0 +1,27 @@
+package com.dlf.api.controller.sys;
+
+import com.dlf.business.manager.comm.DictService;
+import com.dlf.business.manager.user.RoleService;
+import com.dlf.model.dto.GlobalResultDTO;
+import com.dlf.model.dto.comm.DictReqDTO;
+import com.dlf.model.dto.user.RoleSearchDTO;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+
+@RestController
+@RequestMapping("/dict")
+public class DictController {
+
+    @Resource
+    DictService dictService;
+
+    @RequestMapping(value = "/getMap", method = RequestMethod.POST)
+    public GlobalResultDTO getMap(@RequestBody DictReqDTO reqDTO) {
+        return dictService.getMap(reqDTO);
+    }
+
+}

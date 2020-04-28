@@ -6,33 +6,16 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "u_role")
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Role extends BasePo{
 
     private String name;
 
     private Integer type;
-
-    private String remarks;
-
-    private Long createUserId;
-
-    private Date createTime;
-
-    private Long updateUserId;
-
-    private Date updateTime;
-
-    private String orgCode;
-
-    private Integer isDeleted;
 
 }

@@ -1,5 +1,9 @@
 package com.dlf.business.exception;
 
+import com.dlf.model.enums.GlobalResultEnum;
+import com.dlf.model.enums.ICommResultEnums;
+import okhttp3.internal.http2.ErrorCode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +20,11 @@ public class MyException extends RuntimeException{
     private List<String> userIds = new ArrayList<String>();
 
     private String errorCode;
+
+    public MyException(ICommResultEnums resultEnums) {
+        super(resultEnums.getMsg());
+        this.errorCode = resultEnums.getCode();
+    }
 
     public String getErrorCode() {
         return errorCode;

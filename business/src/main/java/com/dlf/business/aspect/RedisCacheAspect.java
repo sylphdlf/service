@@ -3,6 +3,7 @@ package com.dlf.business.aspect;
 import com.dlf.business.anno.RedisCacheAnno;
 import com.dlf.business.manager.redis.RedisService;
 import com.dlf.model.enums.GlobalResultEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -15,9 +16,9 @@ import javax.annotation.Resource;
 
 @Aspect
 @Component
+@Slf4j
 public class RedisCacheAspect {
 
-    private Logger logger = LoggerFactory.getLogger(RedisCacheAspect.class);
     @Resource
     RedisService redisService;
     /**
@@ -42,11 +43,11 @@ public class RedisCacheAspect {
                 //设置缓存和超时时间
                 redisService.put(key, result, anno.timeout());
             }else{
-                logger.info(GlobalResultEnum.CACHE.getMsg());
+                log.info(GlobalResultEnum.CACHE.getMsg());
                 return result;
             }
         } catch (Throwable t) {
-            logger.error(t.getMessage());
+            log.error(t.getMessage());
         }
         return result;
     }

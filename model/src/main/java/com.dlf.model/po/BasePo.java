@@ -3,11 +3,19 @@ package com.dlf.model.po;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.util.Date;
-
+@Data
+@NoArgsConstructor
+@MappedSuperclass
 public class BasePo {
 
-    private Integer status;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String remarks;
 

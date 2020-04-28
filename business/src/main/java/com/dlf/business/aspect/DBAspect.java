@@ -44,13 +44,13 @@ public class DBAspect {
 //                }
                 PropertyUtils.setProperty(bean, "createTime", new Date());
                 if(PropertyUtils.getProperty(bean, "isDeleted") == null){
-                    PropertyUtils.setProperty(bean, "isDeleted", "0");
+                    PropertyUtils.setProperty(bean, "isDeleted", 0);
                 }
                 try {
 
                     PropertyUtils.setProperty(bean, "createUserId", ThreadUser.getUserId());
                 }catch (Exception e){
-                    PropertyUtils.setProperty(bean, "createUserId", "0");
+                    PropertyUtils.setProperty(bean, "createUserId", 0);
                 }
             }catch (Exception e){
                 log.error(e.getMessage());

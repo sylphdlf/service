@@ -1,11 +1,13 @@
 package com.dlf.model.dto.mq;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 public class OrderMqPushDTO extends BaseMqPushDTO{
