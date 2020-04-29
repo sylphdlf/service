@@ -13,7 +13,7 @@ public enum UserEnums {
     STATUS_4(4, "黑名单"),
 
     //用户类型
-    TYPE_0(0, "普通用户"),
+    TYPE_0(0, "超级管理员"),
     TYPE_1(1, "微信小程序"),
     ;
 

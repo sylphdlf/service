@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
                     UserResDTO resDTO = new UserResDTO();
                     BeanUtils.copyProperties(u, resDTO);
                     return GlobalResultDTO.SUCCESS(resDTO);
-                }).orElse(GlobalResultDTO.FAIL());
+                })
+                .orElse(GlobalResultDTO.FAIL());
     }
 }
