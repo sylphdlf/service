@@ -8,12 +8,12 @@ import com.dlf.model.dto.message.MsgReqDTO;
  * Created by Administrator on 2017/5/29.
  */
 public interface MessagePushService {
-    /**
-     * 消息发送
-     * @param msgReqDTO
-     * @return
-     */
-    GlobalResultDTO messagePush(MsgReqDTO msgReqDTO, String redisPrefix) throws MyException;
+//    /**
+//     * 消息发送
+//     * @param msgReqDTO
+//     * @return
+//     */
+//    GlobalResultDTO messagePush(MsgReqDTO msgReqDTO) throws MyException;
 
     /**
      * 消息发送到MQ
@@ -29,4 +29,9 @@ public interface MessagePushService {
      */
     GlobalResultDTO messagePullFromMQ(MsgReqDTO msgReqDTO);
 
+    GlobalResultDTO sendVerifyCode(MsgReqDTO reqDTO);
+
+    Long getExpireTime();
+
+    Long getSendInterval();
 }

@@ -33,10 +33,4 @@ public class UserInterceptor implements HandlerInterceptor {
 //        System.out.println("after");
     }
 
-    public static void main(String[] args) {
-        String temp = "";
-        Optional.of(temp)
-                .flatMap(t -> StringUtils.isEmpty(t) ? Optional.of(DEFAULT_USER_ID) : Optional.of(t))
-                .ifPresent(System.out::println);
-    }
 }

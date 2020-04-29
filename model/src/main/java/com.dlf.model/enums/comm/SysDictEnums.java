@@ -1,13 +1,15 @@
-package com.dlf.model.enums.redis;
+package com.dlf.model.enums.comm;
 
-public enum RedisPrefixEnums {
-    VERIFY_CODE("verify_code_", "验证码前缀"),
-    SEND_INTERVAL("send_interval_","同一号码2次发送的间隔"),
+public enum SysDictEnums {
+
+    MSG_INTERVAL("msg_interval", "短信发送间隔(秒)"),
+    MSG_EXPIRE("msg_expire", "短信发送超时时间(秒)"),
     ;
+
     private final String code;
     private final String desc;
 
-    RedisPrefixEnums(String code, String desc) {
+    SysDictEnums(String code, String desc) {
         this.code = code;
         this.desc = desc;
     }
