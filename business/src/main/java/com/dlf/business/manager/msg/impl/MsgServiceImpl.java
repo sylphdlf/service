@@ -1,9 +1,9 @@
-package com.dlf.business.manager.message.impl;
+package com.dlf.business.manager.msg.impl;
 
 import com.dlf.business.anno.RedisCacheAnno;
 import com.dlf.business.anno.ValidateAnno;
 import com.dlf.business.exception.MyException;
-import com.dlf.business.manager.message.MessagePushService;
+import com.dlf.business.manager.msg.MsgService;
 import com.dlf.business.manager.redis.RedisService;
 import com.dlf.common.utils.message.SmsSendUtils;
 import com.dlf.model.dao.comm.SysDictDao;
@@ -19,16 +19,15 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDate;
+import javax.validation.constraints.AssertTrue;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Optional;
 
 /**
  * Created by Administrator on 2017/5/29.
  */
 @Service
-public class MessagePushServiceImpl implements MessagePushService {
+public class MsgServiceImpl implements MsgService {
 
     @Resource
     private RedisService redisService;
@@ -39,15 +38,15 @@ public class MessagePushServiceImpl implements MessagePushService {
     @ValidateAnno(names = {"mobile"})
     public GlobalResultDTO sendVerifyCode(MsgReqDTO reqDTO) {
         //重复发送校验
-        sendVerify(reqDTO);
+        sendCheck(reqDTO);
         //判断手机
         if(SmsSendUtils.isMobile(reqDTO.getMobile())){
-            SmsSendUtils.send(reqDTO.getMobile(), reqDTO.getVerifyCode());
+            SmsSendUtils.send(reqDTO.getMobile(), "1234");
         }else{
-            throw new MyException(MsgResultEnums.MSG_OO1.getCode(), MsgResultEnums.MSG_OO1.getMsg());
+            throw new MyException(MsgResultEnums.MOBILE_ILLEGAL);
         }
         //把验证码放到缓存中,设置超时时间
-        redisService.put(RedisPrefixEnums.VERIFY_CODE.getCode() + reqDTO.getMobile(), reqDTO.getVerifyCode() + "", getExpireTime());
+        redisService.put(RedisPrefixEnums.VERIFY_CODE.getCode() + reqDTO.getMobile(), "1234" + "", getExpireTime());
         return Optional.of(new MsgResDTO()).map(t -> {
             t.setExpire(getExpireTime());
             t.setInterval(getSendInterval());
@@ -55,21 +54,18 @@ public class MessagePushServiceImpl implements MessagePushService {
         }).get();
     }
 
-    @ValidateAnno(names = {"mobile"})
-    public GlobalResultDTO messagePush(MsgReqDTO reqDTO) throws MyException{
-//        //重复发送校验
-//        sendVerify(reqDTO);
-//        //判断手机
-//        if(SmsSendUtils.isMobile(reqDTO.getMobile())){
-//            SmsSendUtils.send(reqDTO.getMobile(), reqDTO.getVerifyCode());
-//        }else{
-//            throw new MyException(MsgResultEnums.MSG_OO1.getCode(), MsgResultEnums.MSG_OO1.getMsg());
-//        }
-//        //把验证码放到缓存中,设置超时时间
-//        redisService.put(redisPrefix + reqDTO.getMobile(), reqDTO.getVerifyCode() + "", reqDTO.getExpireTime());
-//        return Optional.ofNullable(new MsgResDTO());
-        return null;
+    @Override
+    public GlobalResultDTO checkVerifyCode(MsgReqDTO reqDTO) throws MyException {
+        Optional.ofNullable(redisService.get(reqDTO.getRedisKey()))
+                .filter(StringUtils::isNotBlank)
+                .map(t -> {
+                    if(StringUtils.equalsIgnoreCase(t, reqDTO.getVerifyCode()))
+                        return GlobalResultDTO.SUCCESS();
+                    return GlobalResultDTO.FAIL(MsgResultEnums.VERIFY_CODE_ERROR);
+                });
+        return GlobalResultDTO.FAIL(MsgResultEnums.VERIFY_CODE_ERROR);
     }
+
 
     public GlobalResultDTO messagePushToMQ(MsgReqDTO msgReqDTO) {
         return null;
@@ -83,7 +79,7 @@ public class MessagePushServiceImpl implements MessagePushService {
      * 重复发送校验
      * @param reqDTO
      */
-    private void sendVerify(MsgReqDTO reqDTO) throws MyException{
+    private void sendCheck(MsgReqDTO reqDTO) throws MyException{
         String checkSendInterval = redisService.get(RedisPrefixEnums.SEND_INTERVAL.getCode() + reqDTO.getMobile());
         if(StringUtils.isNotBlank(checkSendInterval)){
             throw new MyException("验证码发送间隔为" + getSendInterval() + "秒");

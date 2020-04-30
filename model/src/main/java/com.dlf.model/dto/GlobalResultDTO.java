@@ -2,6 +2,7 @@ package com.dlf.model.dto;
 
 
 import com.dlf.model.enums.GlobalResultEnum;
+import com.dlf.model.enums.ICommResultEnums;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -166,6 +167,9 @@ public class GlobalResultDTO<T> implements Serializable{
     }
     public static GlobalResultDTO FAIL(String message) {
         return new GlobalResultDTO(message, false);
+    }
+    public static GlobalResultDTO FAIL(ICommResultEnums commResultEnums){
+        return new GlobalResultDTO(commResultEnums.getCode(), commResultEnums.getMsg());
     }
     public static GlobalResultDTO FAIL(String code, String message) {
         return new GlobalResultDTO(code, message);

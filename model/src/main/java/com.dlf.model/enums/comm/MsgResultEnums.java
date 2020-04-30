@@ -1,10 +1,11 @@
 package com.dlf.model.enums.comm;
 
-public enum MsgResultEnums {
+import com.dlf.model.enums.ICommResultEnums;
 
-    MSG_OO1("msg_001", "请传入正确的手机号码"),
-    MSG_OO2("msg_002", "验证码已失效，请重新发送"),
-    MSG_OO3("msg_003", "验证码错误"),
+public enum MsgResultEnums implements ICommResultEnums {
+
+    MOBILE_ILLEGAL("mobile_illegal", "请传入正确的手机号码"),
+    VERIFY_CODE_ERROR("verify_code_error", "验证码无效"),
     ;
     private String code;
     private String msg;

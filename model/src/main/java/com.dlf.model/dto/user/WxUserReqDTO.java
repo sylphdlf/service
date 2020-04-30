@@ -11,5 +11,7 @@ public class WxUserReqDTO {
 
     private String mobile;
 
+    private String verifyCode;
+
     private String remarks;
 }

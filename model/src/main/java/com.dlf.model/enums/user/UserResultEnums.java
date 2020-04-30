@@ -1,11 +1,13 @@
 package com.dlf.model.enums.user;
 
-import java.util.Enumeration;
 
-public enum UserResultEnums implements Enumeration {
+import com.dlf.model.enums.ICommResultEnums;
+
+public enum UserResultEnums implements ICommResultEnums {
 
     USER_NOT_EXISTED("user_001","用户不存在"),
     USER_EXISTED("user_002","该用户已存在"),
+    VERIFY_CODE_ERROR("user_003","验证码无效"),
     ;
 
     private final String code;
@@ -24,13 +26,4 @@ public enum UserResultEnums implements Enumeration {
         return msg;
     }
 
-    @Override
-    public boolean hasMoreElements() {
-        return false;
-    }
-
-    @Override
-    public Object nextElement() {
-        return null;
-    }
 }

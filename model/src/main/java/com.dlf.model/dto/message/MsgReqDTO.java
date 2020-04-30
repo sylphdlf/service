@@ -8,8 +8,10 @@ import lombok.NoArgsConstructor;
 public class MsgReqDTO {
     //手机
     private String mobile;
-    //验证码
-    private String verifyCode;
     //内容
     private String content;
+
+    private String verifyCode;
+
+    private String redisKey;
 }
