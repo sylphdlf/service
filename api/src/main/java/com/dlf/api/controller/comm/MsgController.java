@@ -18,7 +18,7 @@ public class MsgController {
     MsgService msgService;
 
     @RequestMapping(value = "/getVerifyCode", method = RequestMethod.POST)
-    public GlobalResultDTO wxRegister(@RequestBody MsgReqDTO reqDTO) {
+    public GlobalResultDTO getVerifyCode(@RequestBody MsgReqDTO reqDTO) {
         return msgService.sendVerifyCode(reqDTO);
     }
 
