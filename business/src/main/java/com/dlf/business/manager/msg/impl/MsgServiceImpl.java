@@ -46,7 +46,7 @@ public class MsgServiceImpl implements MsgService {
             throw new MyException(MsgResultEnums.MOBILE_ILLEGAL);
         }
         //把验证码放到缓存中,设置超时时间
-        redisService.put(RedisPrefixEnums.VERIFY_CODE.getCode() + reqDTO.getMobile(), "1234" + "", getExpireTime());
+        redisService.put(RedisPrefixEnums.VERIFY_CODE.getCode() + reqDTO.getMobile(), "1234", getExpireTime());
         return Optional.of(new MsgResDTO()).map(t -> {
             t.setExpire(getExpireTime());
             t.setInterval(getSendInterval());
@@ -56,14 +56,13 @@ public class MsgServiceImpl implements MsgService {
 
     @Override
     public GlobalResultDTO checkVerifyCode(MsgReqDTO reqDTO) throws MyException {
-        Optional.ofNullable(redisService.get(reqDTO.getRedisKey()))
-                .filter(StringUtils::isNotBlank)
-                .map(t -> {
-                    if(StringUtils.equalsIgnoreCase(t, reqDTO.getVerifyCode()))
-                        return GlobalResultDTO.SUCCESS();
-                    return GlobalResultDTO.FAIL(MsgResultEnums.VERIFY_CODE_ERROR);
-                });
-        return GlobalResultDTO.FAIL(MsgResultEnums.VERIFY_CODE_ERROR);
+
+        String code = redisService.get(reqDTO.getRedisKey());
+        if(StringUtils.isNotBlank(code) && StringUtils.equalsIgnoreCase(code, reqDTO.getVerifyCode())){
+            return GlobalResultDTO.SUCCESS();
+        }else{
+            return GlobalResultDTO.FAIL(MsgResultEnums.VERIFY_CODE_ERROR);
+        }
     }
 
 

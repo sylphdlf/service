@@ -11,4 +11,6 @@ public interface UserService {
     GlobalResultDTO wxRegister(WxUserReqDTO reqDTO);
 
     GlobalResultDTO getUserByUsername(UserReqDTO reqDTO);
+
+    GlobalResultDTO checkWxspUser(UserReqDTO reqDTO);
 }

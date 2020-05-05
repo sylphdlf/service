@@ -1,5 +1,6 @@
 package com.dlf.business.manager.user.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dlf.business.anno.ValidateAnno;
 import com.dlf.business.exception.MyException;
 import com.dlf.business.manager.msg.MsgService;
@@ -15,6 +16,7 @@ import com.dlf.model.enums.redis.RedisPrefixEnums;
 import com.dlf.model.enums.user.UserEnums;
 import com.dlf.model.enums.user.UserResultEnums;
 import com.dlf.model.po.user.User;
+import com.dlf.model.po.user.WxUser;
 import com.netflix.discovery.converters.Auto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -45,6 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @ValidateAnno(names = {"verifyCode", "mobile", "openId"})
+    @Transactional
     public GlobalResultDTO wxRegister(WxUserReqDTO reqDTO) {
         MsgReqDTO msgReqDTO = new MsgReqDTO();
         msgReqDTO.setVerifyCode(reqDTO.getVerifyCode());
@@ -57,7 +60,15 @@ public class UserServiceImpl implements UserService {
         user.setUsername(reqDTO.getMobile());
         user.setMobile(reqDTO.getMobile());
         user.setType(UserEnums.TYPE_1.getCode());
-        userMapper.save(user);
+        userMapper.saveAndFlush(user);
+
+        WxUser wxUser = new WxUser();
+        JSONObject userInfo = JSONObject.parseObject(reqDTO.getRemarks());
+        wxUser.setNickName(userInfo.getString("nickName"));
+        wxUser.setUserId(user.getId());
+        wxUser.setOpenId(reqDTO.getOpenId());
+        wxUser.setRemarks(reqDTO.getRemarks());
+        wxUserMapper.save(wxUser);
         return GlobalResultDTO.SUCCESS();
     }
 
@@ -72,5 +83,15 @@ public class UserServiceImpl implements UserService {
                     return GlobalResultDTO.SUCCESS(resDTO);
                 })
                 .orElse(GlobalResultDTO.FAIL());
+    }
+
+    @Override
+    public GlobalResultDTO checkWxspUser(UserReqDTO reqDTO) {
+        WxUser wxUser = new WxUser();
+        wxUser.setOpenId(reqDTO.getOpenId());
+        if(wxUserMapper.findOne(Example.of(wxUser)).isPresent()){
+            return GlobalResultDTO.SUCCESS();
+        }
+        return GlobalResultDTO.FAIL();
     }
 }

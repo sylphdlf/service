@@ -12,6 +12,7 @@ import java.util.List;
 public class UserReqDTO{
 
     private String id;
+    private String openId;
     private String userId;
     private String username;
     private String password;

@@ -18,6 +18,8 @@ import java.util.Date;
 @Slf4j
 public class DBAspect {
 
+    private static final Long DEFAULT_USER_ID = 0L;
+
     @Pointcut(value = "execution(* com.dlf.model.dao.*.*.save*(..))")
     private void beforeInsert(){};
 //    @Pointcut(value = "execution(* com.dlf.model.mapper.*.*.delete*(..)) || execution(* com.dlf.model.mapper.*.*.update*(..))")
@@ -48,8 +50,11 @@ public class DBAspect {
                     PropertyUtils.setProperty(bean, "isDeleted", 0);
                 }
                 try {
-
-                    PropertyUtils.setProperty(bean, "createUserId", ThreadUser.getUserId());
+                    if(null == ThreadUser.getUserLocal() || null == ThreadUser.getUserId()){
+                        PropertyUtils.setProperty(bean, "createUserId", DEFAULT_USER_ID);
+                    }else{
+                        PropertyUtils.setProperty(bean, "createUserId", ThreadUser.getUserId());
+                    }
                 }catch (Exception e){
                     PropertyUtils.setProperty(bean, "createUserId", 0);
                 }

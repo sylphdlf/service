@@ -19,12 +19,17 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/wxspRegister", method = RequestMethod.POST)
-    public GlobalResultDTO wxRegister(@RequestBody WxUserReqDTO reqDTO) {
+    public GlobalResultDTO wxspRegister(@RequestBody WxUserReqDTO reqDTO) {
         return userService.wxRegister(reqDTO);
     }
 
     @RequestMapping(value = "/getUserByUsername", method = RequestMethod.POST)
     public GlobalResultDTO getUserByUsername(@RequestBody UserReqDTO reqDTO){
         return userService.getUserByUsername(reqDTO);
+    }
+
+    @RequestMapping(value = "/checkWxspUser", method = RequestMethod.POST)
+    public GlobalResultDTO checkWxspUser(@RequestBody UserReqDTO reqDTO){
+        return userService.checkWxspUser(reqDTO);
     }
 }

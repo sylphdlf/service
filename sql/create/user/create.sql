@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `u_user_wx` (
   `user_id` BIGINT(20) NOT NULL COMMENT '用户id',
   `nick_name` VARCHAR(20) NULL COMMENT '昵称',
   `open_id` VARCHAR(50) NOT NULL COMMENT 'openId',
-  `remarks` VARCHAR(255) DEFAULT NULL COMMENT '备注',
+  `remarks` VARCHAR(500) DEFAULT NULL COMMENT '备注',
   `create_user_id` BIGINT(20) NULL COMMENT '创建人',
   `create_time` TIMESTAMP DEFAULT current_timestamp COMMENT '创建时间',
   `update_user_id` BIGINT(20) NULL COMMENT '最后修改人',

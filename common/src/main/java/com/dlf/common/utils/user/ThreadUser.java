@@ -8,6 +8,10 @@ public class ThreadUser {
         return USER_LOCAL.get().getUserId();
     }
 
+    public static User getUserLocal(){
+        return USER_LOCAL.get();
+    }
+
     public static String getOrgCode(){
         return USER_LOCAL.get().getOrgCode();
     }
