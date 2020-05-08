@@ -18,7 +18,7 @@ public class User extends BasePo {
     private Long id;
 
     private String username;
-    @ColumnTransformer(read = "")
+
     private String password;
 
     private String mobile;
