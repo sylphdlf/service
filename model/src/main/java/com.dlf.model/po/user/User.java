@@ -4,6 +4,7 @@ import com.dlf.model.po.BasePo;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnTransformer;
 
 import javax.persistence.*;
 @EqualsAndHashCode(callSuper = true)
@@ -17,7 +18,7 @@ public class User extends BasePo {
     private Long id;
 
     private String username;
-
+    @ColumnTransformer(read = "")
     private String password;
 
     private String mobile;

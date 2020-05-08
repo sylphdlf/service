@@ -11,17 +11,25 @@ import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.dto.message.MsgReqDTO;
 import com.dlf.model.dto.user.UserReqDTO;
 import com.dlf.model.dto.user.UserResDTO;
+import com.dlf.model.dto.user.UserSearchDTO;
 import com.dlf.model.dto.user.WxUserReqDTO;
+import com.dlf.model.enums.ICommEnums;
 import com.dlf.model.enums.redis.RedisPrefixEnums;
+import com.dlf.model.enums.user.RoleEnums;
 import com.dlf.model.enums.user.UserEnums;
 import com.dlf.model.enums.user.UserResultEnums;
+import com.dlf.model.po.user.Role;
 import com.dlf.model.po.user.User;
 import com.dlf.model.po.user.WxUser;
 import com.netflix.discovery.converters.Auto;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,5 +101,20 @@ public class UserServiceImpl implements UserService {
             return GlobalResultDTO.SUCCESS();
         }
         return GlobalResultDTO.FAIL();
+    }
+
+    @Override
+    public GlobalResultDTO queryPage(UserSearchDTO searchDTO) {
+        User user = new User();
+        BeanUtils.copyProperties(searchDTO, user);
+        Pageable pageable = PageRequest.of(searchDTO.getPageIndex()-1, searchDTO.getPageSize());
+        Example<User> example = Example.of(user);
+        Page<User> all = userMapper.findAll(example, pageable);
+        return GlobalResultDTO.SUCCESS(all);
+    }
+
+    @Override
+    public GlobalResultDTO getTypeMap() {
+        return GlobalResultDTO.SUCCESS(ICommEnums.getKeyValueMap("type", UserEnums.class));
     }
 }

@@ -1,11 +1,12 @@
 package com.dlf.model.enums.user;
 
+import com.dlf.model.enums.ICommEnums;
 import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public enum UserEnums {
+public enum UserEnums implements ICommEnums {
     STATUS_0(0, "初始状态"),
     STATUS_1(1, "未审核"),
     STATUS_2(2, "审核成功"),
