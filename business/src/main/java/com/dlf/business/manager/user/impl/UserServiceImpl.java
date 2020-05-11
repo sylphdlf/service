@@ -97,7 +97,13 @@ public class UserServiceImpl implements UserService {
     public GlobalResultDTO checkWxspUser(UserReqDTO reqDTO) {
         WxUser wxUser = new WxUser();
         wxUser.setOpenId(reqDTO.getOpenId());
-        if(wxUserMapper.findOne(Example.of(wxUser)).isPresent()){
+        Optional<WxUser> result = wxUserMapper.findOne(Example.of(wxUser));
+        if(result.isPresent()){
+            //查询是否为管理员权限
+            int count = userMapper.checkAdmin(result.get().getUserId());
+            if(count > 0){
+                return GlobalResultDTO.SUCCESS(1);
+            }
             return GlobalResultDTO.SUCCESS();
         }
         return GlobalResultDTO.FAIL();

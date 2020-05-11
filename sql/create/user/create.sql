@@ -1,4 +1,3 @@
-drop table `u_user`;
 CREATE TABLE IF NOT EXISTS `u_user` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(255) NOT NULL COMMENT '用户名',
@@ -68,6 +67,7 @@ CREATE TABLE IF NOT EXISTS `u_user_role` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `user_id` BIGINT(20) NOT NULL COMMENT '用户id',
   `role_id` BIGINT(20) NOT NULL COMMENT '角色id',
+  `remarks` VARCHAR(255) DEFAULT NULL COMMENT '备注',
   `create_user_id` BIGINT(20) NULL COMMENT '创建人',
   `create_time` TIMESTAMP DEFAULT current_timestamp COMMENT '创建时间',
   `update_user_id` BIGINT(20) NULL COMMENT '最后修改人',
