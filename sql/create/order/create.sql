@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS o_order_outer (
 
 CREATE TABLE IF NOT EXISTS o_order_file (
     id BIGINT(20) NOT NULL AUTO_INCREMENT,
-    order_id bigint(20) not null comment '子单id',
+    order_id bigint(20) not null comment '订单id或外部订单id',
     file_id varchar(200) not null comment '文件id集合，f_user_file表id',
     status INT(2) DEFAULT '0' COMMENT '状态',
     remarks VARCHAR(255) DEFAULT NULL COMMENT '备注',
