@@ -35,6 +35,14 @@ public class CodeGenerateUtils {
     }
 
     /**
+     * 获取8位随机数
+     * @return
+     */
+    public static Integer getCode8(){
+        return (int)((Math.random()*9+1)*10000000);
+    }
+
+    /**
      * user_ticket生成工具
      * @return
      */
