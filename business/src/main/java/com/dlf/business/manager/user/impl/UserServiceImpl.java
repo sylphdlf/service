@@ -99,12 +99,16 @@ public class UserServiceImpl implements UserService {
         wxUser.setOpenId(reqDTO.getOpenId());
         Optional<WxUser> result = wxUserMapper.findOne(Example.of(wxUser));
         if(result.isPresent()){
+            User user = userMapper.getOne(result.get().getUserId());
             //查询是否为管理员权限
             int count = userMapper.checkAdmin(result.get().getUserId());
+            UserResDTO resDTO = new UserResDTO();
+            resDTO.setId(user.getId());
+            resDTO.setUsername(user.getUsername());
             if(count > 0){
-                return GlobalResultDTO.SUCCESS(1);
+                resDTO.setIsAdmin(1);
             }
-            return GlobalResultDTO.SUCCESS();
+            return GlobalResultDTO.SUCCESS(resDTO);
         }
         return GlobalResultDTO.FAIL();
     }
