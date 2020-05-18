@@ -6,11 +6,16 @@ import com.dlf.model.dao.order.OrderOuterDao;
 import com.dlf.model.dao.user.UserMapper;
 import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.dto.order.OrderReqDTO;
+import com.dlf.model.dto.order.OrderSearchDTO;
 import com.dlf.model.enums.order.OrderOuterEnums;
 import com.dlf.model.enums.user.UserEnums;
 import com.dlf.model.po.order.OrderOuter;
 import com.dlf.model.po.user.User;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -45,5 +50,15 @@ public class OrderServiceImpl implements OrderService {
         orderOuter.setStatus(OrderOuterEnums.STATUS_0.getCode());
         orderOuterDao.save(orderOuter);
         return GlobalResultDTO.SUCCESS();
+    }
+
+    @Override
+    public GlobalResultDTO queryOutPage(OrderSearchDTO searchDTO) {
+        OrderOuter orderOuter = new OrderOuter();
+        BeanUtils.copyProperties(searchDTO, orderOuter);
+        Pageable pageable = PageRequest.of(searchDTO.getPageIndex()-1, searchDTO.getPageSize());
+        Example<OrderOuter> example = Example.of(orderOuter);
+        Page<OrderOuter> all = orderOuterDao.findAll(example, pageable);
+        return GlobalResultDTO.SUCCESS(all);
     }
 }

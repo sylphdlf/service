@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService {
     @ValidateAnno(names = {"verifyCode", "mobile", "openId"})
     @Transactional
     public GlobalResultDTO wxRegister(WxUserReqDTO reqDTO) {
+        //验证码验证
         MsgReqDTO msgReqDTO = new MsgReqDTO();
         msgReqDTO.setVerifyCode(reqDTO.getVerifyCode());
         msgReqDTO.setRedisKey(RedisPrefixEnums.VERIFY_CODE.getCode() + reqDTO.getMobile());
@@ -64,16 +65,20 @@ public class UserServiceImpl implements UserService {
         if(!resultDTO.isSuccess()){
             return GlobalResultDTO.FAIL(UserResultEnums.VERIFY_CODE_ERROR);
         }
+        //新增用户
         User user = new User();
         user.setUsername(reqDTO.getMobile());
-        user.setMobile(reqDTO.getMobile());
-        user.setType(UserEnums.TYPE_1.getCode());
-        userMapper.saveAndFlush(user);
-
+        Long userId = Optional.of(userMapper.findOne(Example.of(user))).get()//是否注册过
+                .orElseGet(() -> {//没有则新增
+                    user.setMobile(reqDTO.getMobile());
+                    user.setType(UserEnums.TYPE_1.getCode());
+                    return userMapper.saveAndFlush(user);
+                }).getId();
+        //新增微信用户
         WxUser wxUser = new WxUser();
         JSONObject userInfo = JSONObject.parseObject(reqDTO.getRemarks());
         wxUser.setNickName(userInfo.getString("nickName"));
-        wxUser.setUserId(user.getId());
+        wxUser.setUserId(userId);
         wxUser.setOpenId(reqDTO.getOpenId());
         wxUser.setRemarks(reqDTO.getRemarks());
         wxUserMapper.save(wxUser);
