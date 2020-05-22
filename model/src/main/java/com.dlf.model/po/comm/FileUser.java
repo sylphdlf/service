@@ -1,33 +1,25 @@
 package com.dlf.model.po.comm;
 
+import com.dlf.model.po.BasePo;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class FileUser {
-    private String id;
+@Entity
+@Table(name = "f_file_user")
+public class FileUser extends BasePo {
 
-    private String fileId;
+    private Long fileId;
 
-    private String orgName;
+    private String name;
 
-    private String userId;
+    private Long userId;
 
     private Integer status;
-
-    private Integer type;
-
-    private String remarks;
-
-    private String createTime;
-
-    private String createUserId;
-
-    private String updateTime;
-
-    private String updateUserId;
-
-    private String isDeleted;
-
 }

@@ -1,12 +1,12 @@
 package com.dlf.api.controller.file;
 
+import com.dlf.business.manager.file.FileService;
 import com.dlf.business.manager.order.OrderService;
 import com.dlf.model.dto.GlobalResultDTO;
-import com.dlf.model.dto.order.OrderReqDTO;
-import com.dlf.model.dto.order.OrderSearchDTO;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import com.dlf.model.dto.file.FileReqDTO;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -15,10 +15,16 @@ import javax.annotation.Resource;
 public class FileController {
 
     @Resource
-    OrderService orderService;
+    FileService fileService;
 
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public GlobalResultDTO upload(MultiValueMap multiValueMap, @RequestParam("orderId") String orderId) {
+    @RequestMapping(value = "/save")
+    public GlobalResultDTO save(@RequestBody FileReqDTO reqDTO){
+
+        return fileService.save(reqDTO);
+    }
+
+    @RequestMapping(value = "/rollback")
+    public GlobalResultDTO rollback(){
 
         return GlobalResultDTO.SUCCESS();
     }

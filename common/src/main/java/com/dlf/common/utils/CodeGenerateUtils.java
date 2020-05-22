@@ -51,7 +51,7 @@ public class CodeGenerateUtils {
     }
 
     /**
-     * 根据前缀生成单号
+     * 根据前缀生成编码
      * @param prefix
      * @return
      */

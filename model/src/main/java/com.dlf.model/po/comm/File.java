@@ -1,37 +1,29 @@
 package com.dlf.model.po.comm;
 
+import com.dlf.model.po.BasePo;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class File {
-    private String id;
+@Entity
+@Table(name = "f_file")
+public class File extends BasePo {
 
     private String name;
 
     private String suffix;
 
-    private String pathRoot;
+    private String path;
 
-    private String pathRelative;
-
-    private Long fileSize;
+    private Long size;
 
     private String md5;
 
     private Integer status;
-
-    private String remarks;
-
-    private String createTime;
-
-    private String createUserId;
-
-    private String updateTime;
-
-    private String updateUserId;
-
-    private String isDeleted;
-
 }

@@ -1,10 +1,9 @@
 package com.dlf.business.manager.file;
 
 import com.dlf.model.dto.GlobalResultDTO;
-import org.springframework.web.multipart.MultipartFile;
+import com.dlf.model.dto.file.FileReqDTO;
 
 public interface FileService {
 
-    GlobalResultDTO upload(String userId, MultipartFile file);
-
+    GlobalResultDTO save(FileReqDTO reqDTO);
 }

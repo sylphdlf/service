@@ -16,10 +16,10 @@ CREATE TABLE IF NOT EXISTS f_file (
     PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='文件表';
 
-CREATE TABLE IF NOT EXISTS f_user_file (
+CREATE TABLE IF NOT EXISTS f_file_user (
     id BIGINT(20) NOT NULL AUTO_INCREMENT,
     file_id bigint(20) not null comment '文件id',
-    name varchar(255) not null comment '用户文件名',
+    name varchar(255) null comment '用户文件名',
     user_id bigint(20) not null comment '用户id',
     status INT(2) DEFAULT '0' COMMENT '状态',
     remarks VARCHAR(255) DEFAULT NULL COMMENT '备注',

@@ -9,10 +9,16 @@ public class FileReqDTO {
 
     private String id;
 
+    private String md5;
+
+    private String suffix;
+
     private String userId;
 
-    private String file;
-
     private String fileName;
+
+    private Long orderId;
+
+    private Long size;
 
 }
