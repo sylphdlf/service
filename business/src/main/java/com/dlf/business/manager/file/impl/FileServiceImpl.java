@@ -1,15 +1,18 @@
 package com.dlf.business.manager.file.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dlf.business.anno.ValidateAnno;
 import com.dlf.business.exception.MyException;
 import com.dlf.business.manager.file.FileService;
 import com.dlf.common.utils.CodeGenerateUtils;
+import com.dlf.common.utils.user.ThreadUser;
 import com.dlf.model.dao.comm.FileDao;
 import com.dlf.model.dao.comm.FileUserDao;
 import com.dlf.model.dao.order.OrderFileDao;
 import com.dlf.model.dao.order.OrderOuterDao;
 import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.dto.file.FileReqDTO;
+import com.dlf.model.dto.file.FileSearchDTO;
 import com.dlf.model.enums.order.OrderResultEnums;
 import com.dlf.model.po.comm.File;
 import com.dlf.model.po.comm.FileUser;
@@ -19,11 +22,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -94,5 +101,22 @@ public class FileServiceImpl implements FileService {
             return orderFileDao.save(orderFile);
         });
         return GlobalResultDTO.SUCCESS(fileSavePath.get());
+    }
+
+    @Override
+    public GlobalResultDTO queryPage(FileSearchDTO searchDTO) {
+        File req = new File();
+        BeanUtils.copyProperties(searchDTO, req);
+        Pageable pageable = PageRequest.of(searchDTO.getPageIndex()-1, searchDTO.getPageSize());
+        Example<File> example = Example.of(req);
+        Page<File> all = fileDao.findAll(example, pageable);
+        return GlobalResultDTO.SUCCESS(all);
+    }
+
+    @Override
+    public GlobalResultDTO queryPageForUser(FileSearchDTO searchDTO) {
+        Pageable pageable = PageRequest.of(searchDTO.getPageIndex()-1, searchDTO.getPageSize());
+        Page<JSONObject[]> all = fileUserDao.findUserFilePage(ThreadUser.getUserId(), pageable);
+        return GlobalResultDTO.SUCCESS(all);
     }
 }
