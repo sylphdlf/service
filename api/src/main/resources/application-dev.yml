@@ -4,7 +4,7 @@ spring:
     name: service
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://118.25.197.159:3306/cloud
+    url: jdbc:mysql://118.25.197.159:3306/cloud?characterEncoding=utf-8
     username: root
     password: ENC(S5oDA0S6hWdD+6eeaYAjTH01Cu74Epsp)
   jpa:

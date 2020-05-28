@@ -17,6 +17,8 @@ public class File extends BasePo {
 
     private String name;
 
+    private String orgName;
+
     private String suffix;
 
     private String path;

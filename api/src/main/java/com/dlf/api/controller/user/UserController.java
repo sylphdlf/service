@@ -25,9 +25,9 @@ public class UserController {
         return userService.wxRegister(reqDTO);
     }
 
-    @RequestMapping(value = "/getUserByUsername", method = RequestMethod.POST)
-    public GlobalResultDTO getUserByUsername(@RequestBody UserReqDTO reqDTO){
-        return userService.getUserByUsername(reqDTO);
+    @RequestMapping(value = "/getByUsername", method = RequestMethod.POST)
+    public GlobalResultDTO getByUsername(@RequestBody UserReqDTO reqDTO){
+        return userService.getByUsername(reqDTO);
     }
 
     @RequestMapping(value = "/checkWxspUser", method = RequestMethod.POST)

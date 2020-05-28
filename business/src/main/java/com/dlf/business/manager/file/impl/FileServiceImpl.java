@@ -12,6 +12,7 @@ import com.dlf.model.dao.order.OrderFileDao;
 import com.dlf.model.dao.order.OrderOuterDao;
 import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.dto.file.FileReqDTO;
+import com.dlf.model.dto.file.FileResDTO;
 import com.dlf.model.dto.file.FileSearchDTO;
 import com.dlf.model.enums.order.OrderResultEnums;
 import com.dlf.model.po.comm.File;
@@ -51,8 +52,8 @@ public class FileServiceImpl implements FileService {
     @Override
     @Transactional
     @ValidateAnno(names = {"md5","orderId"})
-    public GlobalResultDTO save(FileReqDTO reqDTO) {
-        AtomicReference<String> fileSavePath = new AtomicReference<>("");
+    public GlobalResultDTO saveFromOd(FileReqDTO reqDTO) {
+        FileResDTO resDTO = new FileResDTO();
         //查询是否有重复文件, 没有则新增
         File fileReq = new File();
         fileReq.setMd5(reqDTO.getMd5());
@@ -60,8 +61,9 @@ public class FileServiceImpl implements FileService {
             File fileAdd = new File();
             BeanUtils.copyProperties(reqDTO, fileAdd);
             fileAdd.setName(CodeGenerateUtils.codeGenerateByPrefix("f"));//自定义文件名
-            fileAdd.setPath(java.io.File.separator);//相对路径
-            fileSavePath.set(filePath + fileAdd.getPath() + fileAdd.getName() + "." + fileAdd.getSuffix());
+            fileAdd.setPath(java.io.File.separator + fileAdd.getSuffix() + java.io.File.separator);//相对路径
+            resDTO.setPath(filePath + fileAdd.getPath() + fileAdd.getName() + "." + fileAdd.getSuffix());
+            resDTO.setName(fileAdd.getName());
             return fileDao.saveAndFlush(fileAdd);
         });
 
@@ -100,7 +102,28 @@ public class FileServiceImpl implements FileService {
             orderFile.setFileId(finalFileUser.getId() + "");
             return orderFileDao.save(orderFile);
         });
-        return GlobalResultDTO.SUCCESS(fileSavePath.get());
+        return GlobalResultDTO.SUCCESS(resDTO);
+    }
+
+    @Override
+    public GlobalResultDTO save(FileReqDTO reqDTO) {
+        FileResDTO resDTO = new FileResDTO();
+        //查询是否有重复文件, 没有则新增
+        File fileReq = new File();
+        fileReq.setMd5(reqDTO.getMd5());
+        if(!fileDao.findOne(Example.of(fileReq)).isPresent()){
+            File fileAdd = new File();
+            BeanUtils.copyProperties(reqDTO, fileAdd);
+            fileAdd.setName(CodeGenerateUtils.codeGenerateByPrefix("f"));//自定义文件名
+            fileAdd.setOrgName(StringUtils.isNotBlank(reqDTO.getFileName())
+                    ? reqDTO.getFileName() : fileAdd.getName());
+            fileAdd.setPath(fileAdd.getSuffix() + java.io.File.separator);//相对路径
+            resDTO.setPath(filePath + java.io.File.separator + fileAdd.getPath());
+            resDTO.setName(fileAdd.getName()
+                    + (StringUtils.isNotBlank(fileAdd.getSuffix()) ? "." + fileAdd.getSuffix() : ""));
+            fileDao.saveAndFlush(fileAdd);
+        }
+        return GlobalResultDTO.SUCCESS(resDTO);
     }
 
     @Override

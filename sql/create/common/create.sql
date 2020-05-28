@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS f_file (
     id BIGINT(20) NOT NULL AUTO_INCREMENT,
     name varchar(100) not null comment '文件名(系统生成)',
+    org_name varchar(100) null null comment '文件名(原始)',
     suffix varchar(10) null comment '后缀',
     path varchar(255) not null comment '相对路径',
     size bigint(20) not null comment '文件大小b',

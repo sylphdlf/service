@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public GlobalResultDTO getUserByUsername(UserReqDTO reqDTO) {
+    public GlobalResultDTO getByUsername(UserReqDTO reqDTO) {
         User user = new User();
         user.setUsername(reqDTO.getUsername());
         return userMapper.findOne(Example.of(user))

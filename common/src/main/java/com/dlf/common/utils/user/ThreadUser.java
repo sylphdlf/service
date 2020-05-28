@@ -20,10 +20,17 @@ public class ThreadUser {
         USER_LOCAL.set(userLocal);
     }
 
-    public static void setUser(Long userId, String username) {
+    public static void setUser(Long userId, String username, String ip) {
         User threadUser = new User();
         threadUser.setUserId(userId);
         threadUser.setUsername(username);
+        threadUser.setIp(ip);
+        USER_LOCAL.set(threadUser);
+    }
+
+    public static void setIp(String ip){
+        User threadUser = new User();
+        threadUser.setIp(ip);
         USER_LOCAL.set(threadUser);
     }
 
@@ -31,6 +38,7 @@ public class ThreadUser {
         private Long userId;
         private String username;
         private String orgCode;
+        private String ip;
 
         public Long getUserId() {
             return userId;
@@ -54,6 +62,14 @@ public class ThreadUser {
 
         public void setOrgCode(String orgCode) {
             this.orgCode = orgCode;
+        }
+
+        public String getIp() {
+            return ip;
+        }
+
+        public void setIp(String ip) {
+            this.ip = ip;
         }
     }
 }

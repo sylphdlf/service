@@ -20,6 +20,12 @@ public class FileController{
     @Resource
     FileService fileService;
 
+    @RequestMapping(value = "/saveFromOd")
+    public GlobalResultDTO saveFromOd(@RequestBody FileReqDTO reqDTO){
+
+        return fileService.saveFromOd(reqDTO);
+    }
+
     @RequestMapping(value = "/save")
     public GlobalResultDTO save(@RequestBody FileReqDTO reqDTO){
 
