@@ -45,18 +45,28 @@ public class DBAspect {
 //                if (PropertyUtils.getProperty(bean, "id") == null) {
 //                    PropertyUtils.setProperty(bean, "id", CodeGenerateUtils.idGenerateByUUID());
 //                }
-                PropertyUtils.setProperty(bean, "createTime", new Date());
-                if(PropertyUtils.getProperty(bean, "isDeleted") == null){
-                    PropertyUtils.setProperty(bean, "isDeleted", 0);
-                }
-                try {
+                //update
+                if(PropertyUtils.getProperty(bean, "id") != null){
                     if(null == ThreadUser.getUserLocal() || null == ThreadUser.getUserId()){
-                        PropertyUtils.setProperty(bean, "createUserId", DEFAULT_USER_ID);
+                        PropertyUtils.setProperty(bean, "updateUserId", DEFAULT_USER_ID);
                     }else{
-                        PropertyUtils.setProperty(bean, "createUserId", ThreadUser.getUserId());
+                        PropertyUtils.setProperty(bean, "updateUserId", ThreadUser.getUserId());
                     }
-                }catch (Exception e){
-                    PropertyUtils.setProperty(bean, "createUserId", 0);
+                    PropertyUtils.setProperty(bean, "updateTime", new Date());
+                }else {
+                    PropertyUtils.setProperty(bean, "createTime", new Date());
+                    if(PropertyUtils.getProperty(bean, "isDeleted") == null){
+                        PropertyUtils.setProperty(bean, "isDeleted", 0);
+                    }
+                    try {
+                        if(null == ThreadUser.getUserLocal() || null == ThreadUser.getUserId()){
+                            PropertyUtils.setProperty(bean, "createUserId", DEFAULT_USER_ID);
+                        }else{
+                            PropertyUtils.setProperty(bean, "createUserId", ThreadUser.getUserId());
+                        }
+                    }catch (Exception e){
+                        PropertyUtils.setProperty(bean, "createUserId", 0);
+                    }
                 }
             }catch (Exception e){
                 log.error(e.getMessage());

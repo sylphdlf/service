@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface UserMapper extends JpaRepository<User, Long> {
+public interface UserDao extends JpaRepository<User, Long> {
 
     @Query(value="select count(1) from " +
             "u_user_role a left join u_role b on a.role_id = b.id " +

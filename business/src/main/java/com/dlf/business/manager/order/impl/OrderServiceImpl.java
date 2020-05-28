@@ -3,7 +3,7 @@ package com.dlf.business.manager.order.impl;
 import com.dlf.business.manager.order.OrderService;
 import com.dlf.common.utils.CodeGenerateUtils;
 import com.dlf.model.dao.order.OrderOuterDao;
-import com.dlf.model.dao.user.UserMapper;
+import com.dlf.model.dao.user.UserDao;
 import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.dto.order.OrderReqDTO;
 import com.dlf.model.dto.order.OrderSearchDTO;
@@ -25,7 +25,7 @@ import java.util.Optional;
 public class OrderServiceImpl implements OrderService {
 
     @Resource
-    UserMapper userMapper;
+    UserDao userDao;
     @Resource
     OrderOuterDao orderOuterDao;
 
@@ -34,12 +34,12 @@ public class OrderServiceImpl implements OrderService {
         //新增用户信息
         User user = new User();
         user.setMobile(reqDTO.getMobile());
-        Long userId = Optional.of(userMapper.findOne(Example.of(user))).get()
+        Long userId = Optional.of(userDao.findOne(Example.of(user))).get()
                         .orElseGet(() -> {
                             user.setUsername(reqDTO.getMobile());
                             user.setType(UserEnums.TYPE_1.getCode());
                             user.setStatus(UserEnums.STATUS_0.getCode());
-                            return userMapper.saveAndFlush(user);
+                            return userDao.saveAndFlush(user);
                         }).getId();
         //新增外部订单
         OrderOuter orderOuter = new OrderOuter();

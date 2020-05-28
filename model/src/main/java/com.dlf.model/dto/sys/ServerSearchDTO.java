@@ -8,9 +8,4 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ServerSearchDTO extends BaseReqDTO {
 
-    private String name;
-    private String ip;
-    private Integer port;
-    private String serverPath;
-    private String configPath;
 }
