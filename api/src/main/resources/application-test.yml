@@ -49,3 +49,6 @@ rocketMq:
   nameSrv:
     addr: 118.25.197.159
     port: 9876
+logging:
+  level:
+    com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver: WARN
