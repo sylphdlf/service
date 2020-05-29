@@ -44,7 +44,7 @@ jasypt:
 #文件上传地址
 comm:
   upload:
-    root: /Users/lfd/Pictures/test
+    root: /data/upload
 rocketMq:
   nameSrv:
     addr: 118.25.197.159
