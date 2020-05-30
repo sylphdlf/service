@@ -12,12 +12,5 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class DictSearchDTO extends PageDTO {
 
-    private static final long serialVersionUID = 1L;
-
-    private String name;
-
-    private String dictKey;
-
-    private Integer type;
-
+    private Long parentId;
 }

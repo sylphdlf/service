@@ -4,6 +4,7 @@ import com.dlf.business.manager.comm.DictService;
 import com.dlf.business.manager.user.RoleService;
 import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.dto.comm.DictReqDTO;
+import com.dlf.model.dto.comm.DictSearchDTO;
 import com.dlf.model.dto.user.RoleSearchDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,16 @@ public class DictController {
     @RequestMapping(value = "/getMap", method = RequestMethod.POST)
     public GlobalResultDTO getMap(@RequestBody DictReqDTO reqDTO) {
         return dictService.getMap(reqDTO);
+    }
+
+    @RequestMapping(value = "/queryPage", method = RequestMethod.POST)
+    public GlobalResultDTO queryPage(@RequestBody DictSearchDTO searchDTO){
+        return dictService.queryPage(searchDTO);
+    }
+
+    @RequestMapping(value = "/addOrEdit", method = RequestMethod.POST)
+    public GlobalResultDTO addOrEdit(@RequestBody DictReqDTO reqDTO){
+        return dictService.addOrEdit(reqDTO);
     }
 
 }

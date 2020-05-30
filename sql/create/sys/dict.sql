@@ -1,9 +1,11 @@
 CREATE TABLE IF NOT EXISTS s_dict (
     id BIGINT(20) NOT NULL AUTO_INCREMENT,
-    dict_key VARCHAR(20) NOT NULL COMMENT '键',
-    dict_value VARCHAR(20) NOT NULL COMMENT '值',
+    name varchar(50) not null comment '名称',
+    dict_key VARCHAR(50) NOT NULL COMMENT '键',
+    dict_value VARCHAR(50) NOT NULL COMMENT '值',
     parent_id BIGINT(20) DEFAULT NULL COMMENT '父ID',
     sort INT(3) DEFAULT 0 COMMENT '排序',
+    status int(2) default 0 comment '状态',
     remarks VARCHAR(255) DEFAULT NULL COMMENT '备注',
     create_user_id BIGINT(20) NULL COMMENT '创建人',
     create_time TIMESTAMP DEFAULT current_timestamp COMMENT '创建时间',

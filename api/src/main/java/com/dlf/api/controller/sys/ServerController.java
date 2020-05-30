@@ -3,8 +3,6 @@ package com.dlf.api.controller.sys;
 import com.dlf.business.manager.sys.ServerService;
 import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.dto.sys.AccessSearchDTO;
-import com.dlf.model.dto.sys.ServerReqDTO;
-import com.dlf.model.dto.sys.ServerSearchDTO;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
