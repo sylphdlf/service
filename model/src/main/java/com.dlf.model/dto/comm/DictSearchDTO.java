@@ -12,5 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class DictSearchDTO extends PageDTO {
 
+    private Long id;
+
     private Long parentId;
 }

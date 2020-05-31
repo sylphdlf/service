@@ -35,4 +35,13 @@ public class DictController {
         return dictService.addOrEdit(reqDTO);
     }
 
+    /**
+     * 刷新redis缓存
+     * @param searchDTO
+     * @return
+     */
+    @RequestMapping(value = "/refreshCache", method = RequestMethod.POST)
+    public GlobalResultDTO refreshCache(@RequestBody DictSearchDTO searchDTO){
+        return dictService.refreshCache(searchDTO);
+    }
 }

@@ -11,4 +11,6 @@ public interface DictService {
     GlobalResultDTO queryPage(DictSearchDTO searchDTO);
 
     GlobalResultDTO addOrEdit(DictReqDTO reqDTO);
+
+    GlobalResultDTO refreshCache(DictSearchDTO searchDTO);
 }

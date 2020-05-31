@@ -1,7 +1,9 @@
 package com.dlf.business.manager.comm.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dlf.business.anno.RedisCacheAnno;
 import com.dlf.business.manager.comm.DictService;
+import com.dlf.business.manager.redis.RedisService;
 import com.dlf.model.dao.comm.SysDictDao;
 import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.dto.comm.DictReqDTO;
@@ -16,15 +18,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class DictServiceImpl implements DictService {
 
     @Resource
     SysDictDao sysDictDao;
+    @Resource
+    RedisService redisService;
 
     @Override
     @RedisCacheAnno(timeout = 1800)
@@ -61,6 +69,20 @@ public class DictServiceImpl implements DictService {
                 sysDict.setParentId(0L);
             }
             sysDictDao.save(sysDict);
+        }
+        return GlobalResultDTO.SUCCESS();
+    }
+
+    @Override
+    public GlobalResultDTO refreshCache(DictSearchDTO searchDTO) {
+        SysDict childrenReq = new SysDict();
+        childrenReq.setParentId(searchDTO.getId());
+        List<SysDict> children = sysDictDao.findAll(Example.of(childrenReq));
+        SysDict parent = sysDictDao.getOne(searchDTO.getId());
+        if(CollectionUtils.isEmpty(children)){
+            redisService.put(parent.getDictKey(), parent.getDictValue());
+        }else {
+            redisService.put(parent.getDictKey(), children.stream().collect(Collectors.toMap(SysDict::getDictKey, SysDict::getDictValue)));
         }
         return GlobalResultDTO.SUCCESS();
     }
