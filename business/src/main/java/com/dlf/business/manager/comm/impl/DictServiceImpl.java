@@ -1,5 +1,6 @@
 package com.dlf.business.manager.comm.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dlf.business.anno.RedisCacheAnno;
 import com.dlf.business.manager.comm.DictService;
@@ -9,6 +10,7 @@ import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.dto.comm.DictReqDTO;
 import com.dlf.model.dto.comm.DictSearchDTO;
 import com.dlf.model.enums.ICommEnums;
+import com.dlf.model.enums.comm.SysDictEnums;
 import com.dlf.model.enums.user.RoleEnums;
 import com.dlf.model.po.comm.SysDict;
 import com.dlf.model.po.user.User;
@@ -68,6 +70,7 @@ public class DictServiceImpl implements DictService {
             if(null == reqDTO.getParentId()){
                 sysDict.setParentId(0L);
             }
+            sysDict.setStatus(Integer.valueOf(SysDictEnums.status_0.getCode()));
             sysDictDao.save(sysDict);
         }
         return GlobalResultDTO.SUCCESS();
@@ -82,7 +85,8 @@ public class DictServiceImpl implements DictService {
         if(CollectionUtils.isEmpty(children)){
             redisService.put(parent.getDictKey(), parent.getDictValue());
         }else {
-            redisService.put(parent.getDictKey(), children.stream().collect(Collectors.toMap(SysDict::getDictKey, SysDict::getDictValue)));
+            System.out.println(JSON.toJSONString(children.stream().map(SysDict::getDictKey).collect(Collectors.toList())));
+            redisService.put(parent.getDictKey(), JSON.toJSONString(children.stream().map(SysDict::getDictKey).collect(Collectors.toList())));
         }
         return GlobalResultDTO.SUCCESS();
     }

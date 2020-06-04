@@ -4,6 +4,8 @@ public enum SysDictEnums {
 
     MSG_INTERVAL("msg_interval", "短信发送间隔(秒)"),
     MSG_EXPIRE("msg_expire", "短信发送超时时间(秒)"),
+
+    status_0("0", "")
     ;
 
     private final String code;
