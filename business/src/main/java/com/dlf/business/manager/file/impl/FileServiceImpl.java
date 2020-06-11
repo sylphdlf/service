@@ -171,4 +171,15 @@ public class FileServiceImpl implements FileService {
             return GlobalResultDTO.SUCCESS();
         }
     }
+
+    @Override
+    @ValidateAnno(names = {"id"})
+    public GlobalResultDTO download(FileReqDTO reqDTO) {
+        File one = fileDao.getOne(reqDTO.getId());
+        FileResDTO resDTO = new FileResDTO();
+        resDTO.setName(one.getOrgName() + "." + one.getSuffix());
+        resDTO.setPath(filePath + java.io.File.separator
+                + one.getPath() + one.getName() + "." + one.getSuffix());
+        return GlobalResultDTO.SUCCESS(resDTO);
+    }
 }

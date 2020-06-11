@@ -48,9 +48,17 @@ public class FileController{
         return fileService.queryPageForUser(searchDTO);
     }
 
-    @RequestMapping(value = "/del")
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
     public GlobalResultDTO del(@RequestBody FileReqDTO reqDTO){
 
         return fileService.del(reqDTO);
     }
+
+    @RequestMapping(value = "/download", method = RequestMethod.POST)
+    public GlobalResultDTO download(@RequestBody FileReqDTO reqDTO){
+
+        return fileService.download(reqDTO);
+    }
+
+
 }
