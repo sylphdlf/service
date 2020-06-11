@@ -47,4 +47,10 @@ public class FileController{
     public GlobalResultDTO queryPageForUser(@RequestBody FileSearchDTO searchDTO) {
         return fileService.queryPageForUser(searchDTO);
     }
+
+    @RequestMapping(value = "/del")
+    public GlobalResultDTO del(@RequestBody FileReqDTO reqDTO){
+
+        return fileService.del(reqDTO);
+    }
 }

@@ -14,6 +14,7 @@ import com.dlf.model.dto.GlobalResultDTO;
 import com.dlf.model.dto.file.FileReqDTO;
 import com.dlf.model.dto.file.FileResDTO;
 import com.dlf.model.dto.file.FileSearchDTO;
+import com.dlf.model.enums.file.FileResultEnums;
 import com.dlf.model.enums.order.OrderResultEnums;
 import com.dlf.model.po.comm.File;
 import com.dlf.model.po.comm.FileUser;
@@ -141,5 +142,33 @@ public class FileServiceImpl implements FileService {
         Pageable pageable = PageRequest.of(searchDTO.getPageIndex()-1, searchDTO.getPageSize());
         Page<JSONObject[]> all = fileUserDao.findUserFilePage(ThreadUser.getUserId(), pageable);
         return GlobalResultDTO.SUCCESS(all);
+    }
+
+    @Override
+    @ValidateAnno(names = "id")
+    public GlobalResultDTO del(FileReqDTO reqDTO) {
+        FileUser fileUser = new FileUser();
+        fileUser.setFileId(reqDTO.getId());
+        long count = fileUserDao.count(Example.of(fileUser));
+        if(count > 0){
+            return GlobalResultDTO.FAIL(FileResultEnums.FILE_IN_USE);
+        }else {
+            File one = fileDao.getOne(reqDTO.getId());
+            //删除文件
+            try {
+                String path = filePath + java.io.File.separator + one.getPath()
+                        + one.getName() + "." + one.getSuffix();
+                java.io.File file = new java.io.File(path);
+                boolean delete = file.delete();
+                if(!delete){
+                    throw new MyException(FileResultEnums.FILE_DEL_FAIL);
+                }
+            }catch (Exception e){
+                throw new MyException(e.getMessage());
+            }
+            //删数据
+            fileDao.delete(one);
+            return GlobalResultDTO.SUCCESS();
+        }
     }
 }

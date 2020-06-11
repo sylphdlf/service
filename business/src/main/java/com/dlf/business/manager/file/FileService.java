@@ -14,4 +14,5 @@ public interface FileService {
 
     GlobalResultDTO queryPageForUser(FileSearchDTO searchDTO);
 
+    GlobalResultDTO del(FileReqDTO reqDTO);
 }

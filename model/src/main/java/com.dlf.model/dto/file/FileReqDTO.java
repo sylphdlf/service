@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FileReqDTO {
 
-    private String id;
+    private Long id;
 
     private String md5;
 

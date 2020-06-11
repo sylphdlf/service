@@ -47,50 +47,18 @@ CREATE TABLE IF NOT EXISTS f_file_trash (
     is_deleted INT(2) DEFAULT '0' COMMENT '是否逻辑删除:默认0未删除,1已删除',
     PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='文件垃圾箱';
-#
-# create table f_chat_file(
-#     id VARCHAR2(32) primary key ,
-#     file_id VARCHAR2(32) NOT NULL,
-#     org_name VARCHAR2(255) NOT NULL,
-#     user_id VARCHAR2(32),
-#     target_user_id VARCHAR2(32) NOT NULL,
-#     is_read numeric(2) NOT NULL,
-#     status numeric(2),
-#     remarks VARCHAR2(200),
-#     create_time VARCHAR2(20) not null,
-#     create_user_id VARCHAR2(32),
-#     update_time VARCHAR2(20),
-#     update_user_id VARCHAR2(32),
-#     is_deleted VARCHAR2(2)
-# );
-#
-# create table d_areacode(
-#   id VARCHAR2(32) primary key ,
-#   code VARCHAR2(20),
-#   name VARCHAR2(50),
-#   parent_code VARCHAR2(20),
-#   remarks VARCHAR2(200),
-#   create_time VARCHAR2(20) not null,
-#   create_user_id VARCHAR2(32),
-#   update_time VARCHAR2(20),
-#   update_user_id VARCHAR2(32),
-#   is_deleted VARCHAR2(2)
-# );
-#
-# create table d_dictionary(
-#   id VARCHAR2(32) primary key ,
-#   name VARCHAR2(20),
-#   dict_key VARCHAR2(20),
-#   dict_value VARCHAR2(500),
-#   type numeric(2),
-#   status numeric(2),
-#   remarks VARCHAR2(200),
-#   create_time VARCHAR2(20) not null,
-#   create_user_id VARCHAR2(32),
-#   update_time VARCHAR2(20),
-#   update_user_id VARCHAR2(32),
-#   is_deleted VARCHAR2(2)
-# );
-#
-#
-#
+
+CREATE TABLE IF NOT EXISTS s_sys_log (
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) comment '日志名称',
+    content text comment '日志内容',
+    priority int(2) default 0 comment '优先级',
+    remarks VARCHAR(255) DEFAULT NULL COMMENT '备注',
+    create_user_id BIGINT(20) NULL COMMENT '创建人',
+    create_time TIMESTAMP DEFAULT current_timestamp COMMENT '创建时间',
+    update_user_id BIGINT(20) NULL COMMENT '最后修改人',
+    update_time TIMESTAMP NULL DEFAULT NULL COMMENT '最后修改时间',
+    org_code VARCHAR(32) NULL COMMENT '组织机构代码',
+    is_deleted INT(2) DEFAULT '0' COMMENT '是否逻辑删除:默认0未删除,1已删除',
+    PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='系统日志表';
