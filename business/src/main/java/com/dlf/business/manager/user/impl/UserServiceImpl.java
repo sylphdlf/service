@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dlf.business.anno.ValidateAnno;
 import com.dlf.business.manager.msg.MsgService;
 import com.dlf.business.manager.user.UserService;
+import com.dlf.model.dao.user.AccessLogDao;
 import com.dlf.model.dao.user.UserDao;
 import com.dlf.model.dao.user.WxUserMapper;
 import com.dlf.model.dto.GlobalResultDTO;
@@ -16,18 +17,17 @@ import com.dlf.model.enums.ICommEnums;
 import com.dlf.model.enums.redis.RedisPrefixEnums;
 import com.dlf.model.enums.user.UserEnums;
 import com.dlf.model.enums.user.UserResultEnums;
+import com.dlf.model.po.user.AccessLog;
 import com.dlf.model.po.user.User;
 import com.dlf.model.po.user.WxUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -40,6 +40,8 @@ public class UserServiceImpl implements UserService {
     WxUserMapper wxUserMapper;
     @Resource
     MsgService msgService;
+    @Resource
+    AccessLogDao accessLogDao;
 
     @Override
     public GlobalResultDTO register() {
@@ -86,6 +88,10 @@ public class UserServiceImpl implements UserService {
                 .map(u -> {
                     UserResDTO resDTO = new UserResDTO();
                     BeanUtils.copyProperties(u, resDTO);
+                    //获取上一次访问记录
+                    AccessLog accessLog = accessLogDao.findTopByUserIdOrderByUpdateTimeDesc(u.getId());
+                    resDTO.setLastIp(accessLog.getIpAddr());
+                    resDTO.setUpdateTime(accessLog.getUpdateTime());
                     return GlobalResultDTO.SUCCESS(resDTO);
                 })
                 .orElse(GlobalResultDTO.FAIL());

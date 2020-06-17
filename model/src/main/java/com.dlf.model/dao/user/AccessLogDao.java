@@ -16,4 +16,11 @@ public interface AccessLogDao extends JpaRepository<AccessLog, Long> {
             countQuery = "select count(1) from u_access_log a left join u_user b on a.user_id = b.id",
             nativeQuery = true)
     Page<JSONObject[]> queryPageLeftUser(Pageable pageable);
+
+    /**
+     * 查询上一次访问记录
+     * @param userId
+     * @return
+     */
+    AccessLog findTopByUserIdOrderByUpdateTimeDesc(Long userId);
 }

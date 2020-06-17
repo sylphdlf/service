@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -17,4 +18,8 @@ public class UserResDTO implements Serializable {
     private String password;
 
     private Integer isAdmin;
+
+    private String lastIp;
+
+    private Date updateTime;
 }

@@ -20,11 +20,13 @@ public class ThreadUser {
         USER_LOCAL.set(userLocal);
     }
 
-    public static void setUser(Long userId, String username, String ip) {
+    public static void setUser(Long userId, String username, String ip, String url, String sessionId) {
         User threadUser = new User();
         threadUser.setUserId(userId);
         threadUser.setUsername(username);
         threadUser.setIp(ip);
+        threadUser.setUrl(url);
+        threadUser.setSessionId(sessionId);
         USER_LOCAL.set(threadUser);
     }
 
@@ -34,11 +36,13 @@ public class ThreadUser {
         USER_LOCAL.set(threadUser);
     }
 
-    static class User {
+    public static class User {
         private Long userId;
         private String username;
         private String orgCode;
         private String ip;
+        private String url;
+        private String sessionId;
 
         public Long getUserId() {
             return userId;
@@ -70,6 +74,22 @@ public class ThreadUser {
 
         public void setIp(String ip) {
             this.ip = ip;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getSessionId() {
+            return sessionId;
+        }
+
+        public void setSessionId(String sessionId) {
+            this.sessionId = sessionId;
         }
     }
 }

@@ -56,35 +56,36 @@ public class UserInterceptor implements HandlerInterceptor {
         } else {
             userId = request.getHeader(HEADER_USER_ID);
         }
-        ThreadUser.setUser(Long.valueOf(userId), username, ip);
+        ThreadUser.setUser(Long.valueOf(userId), username, ip, url, sessionId);
+        return true;
+    }
+
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object o, ModelAndView modelAndView) throws Exception {
+//        System.out.println("post");
         //记录访问日志
         //fixme 放到消息队列中
-        if(logUrls.contains(url)){
+        ThreadUser.User userLocal = ThreadUser.getUserLocal();
+        if(logUrls.contains(userLocal.getUrl())){
             executor.execute(() -> {
                 User user = new User();
-                user.setUsername(username);
+                user.setUsername(userLocal.getUsername());
                 userDao.findOne(Example.of(user)).ifPresent(t -> {
                     AccessLog accessLog = new AccessLog();
                     accessLog.setUserId(t.getId());
-                    accessLog.setIpAddr(ip);
+                    accessLog.setIpAddr(userLocal.getIp());
                     accessLogDao.findOne(Example.of(accessLog)).map(a -> {
                         a.setAccessCount(a.getAccessCount() + 1);
                         return accessLogDao.saveAndFlush(a);
                     }).orElseGet(() -> {
                         accessLog.setAccessCount(1);
-                        accessLog.setUrl(url);
-                        accessLog.setSession_id(sessionId);
-                        accessLog.setIpAddr(ip);
+                        accessLog.setUrl(userLocal.getUrl());
+                        accessLog.setSession_id(userLocal.getSessionId());
+                        accessLog.setIpAddr(userLocal.getIp());
                         return accessLogDao.saveAndFlush(accessLog);
                     });
                 });
             });
         }
-        return true;
-    }
-
-    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-//        System.out.println("post");
     }
 
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
