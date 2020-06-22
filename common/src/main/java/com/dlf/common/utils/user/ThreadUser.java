@@ -16,6 +16,10 @@ public class ThreadUser {
         return USER_LOCAL.get().getOrgCode();
     }
 
+    public static String getIp(){
+        return USER_LOCAL.get().getIp();
+    }
+
     public static void setUserLocal(User userLocal) {
         USER_LOCAL.set(userLocal);
     }

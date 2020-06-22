@@ -19,6 +19,8 @@ public class UserResDTO implements Serializable {
 
     private Integer isAdmin;
 
+    private String ip;
+
     private String lastIp;
 
     private Date updateTime;

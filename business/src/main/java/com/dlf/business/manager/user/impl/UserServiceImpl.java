@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.dlf.business.anno.ValidateAnno;
 import com.dlf.business.manager.msg.MsgService;
 import com.dlf.business.manager.user.UserService;
+import com.dlf.common.utils.user.ThreadUser;
 import com.dlf.model.dao.user.AccessLogDao;
 import com.dlf.model.dao.user.UserDao;
 import com.dlf.model.dao.user.WxUserMapper;
