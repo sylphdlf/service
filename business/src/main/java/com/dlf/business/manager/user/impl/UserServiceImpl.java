@@ -132,4 +132,9 @@ public class UserServiceImpl implements UserService {
     public GlobalResultDTO getTypeMap() {
         return GlobalResultDTO.SUCCESS(ICommEnums.getKeyValueMap("type", UserEnums.class));
     }
+
+    @Override
+    public GlobalResultDTO getAccessCount() {
+        return GlobalResultDTO.SUCCESS(accessLogDao.sumAccessCount() + "");
+    }
 }

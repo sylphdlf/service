@@ -18,4 +18,6 @@ public interface UserService {
     GlobalResultDTO queryPage(UserSearchDTO searchDTO);
 
     GlobalResultDTO getTypeMap();
+
+    GlobalResultDTO getAccessCount();
 }

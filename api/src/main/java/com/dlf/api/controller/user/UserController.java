@@ -44,4 +44,9 @@ public class UserController {
     public GlobalResultDTO getTypeMap(){
         return userService.getTypeMap();
     }
+
+    @RequestMapping(value = "/getAccessCount", method = RequestMethod.POST)
+    public GlobalResultDTO getAccessCount(){
+        return userService.getAccessCount();
+    }
 }

@@ -23,4 +23,6 @@ public interface AccessLogDao extends JpaRepository<AccessLog, Long> {
      * @return
      */
     AccessLog findTopByUserIdOrderByUpdateTimeDesc(Long userId);
+    @Query(value = "select sum(access_count) from u_access_log", nativeQuery = true)
+    long sumAccessCount();
 }
